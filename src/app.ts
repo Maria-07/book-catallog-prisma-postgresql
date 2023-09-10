@@ -17,6 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', routes);
 
+// testing purpose
+app.get('/', async (req: Request, res: Response) => {
+  res.send('book catalog Application WOrking SuccessFully');
+});
 
 //global error handler
 app.use(globalErrorHandler);
