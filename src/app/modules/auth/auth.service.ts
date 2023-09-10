@@ -50,15 +50,17 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
     {
       userEmail,
       role,
+      userId: user.id,
     },
     config.jwt.secret as Secret,
-    config.jwt.expire_in as string
+    '1y'
   );
 
   const refreshToken = jwtHelpers.createToken(
     {
       userEmail,
       role,
+      userId: user.id,
     },
     config.jwt.refresh_secret as Secret,
     config.jwt.refresh_expire_in as string

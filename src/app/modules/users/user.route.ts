@@ -5,6 +5,11 @@ import { UserController } from './user.controller';
 
 const router = express.Router();
 
+router.get(
+  '/profile',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.CUSTOMER),
+  UserController.getUserProfile
+);
 router.get('/', auth(ENUM_USER_ROLE.ADMIN), UserController.allUsers);
 router.get('/:id', auth(ENUM_USER_ROLE.ADMIN), UserController.getSingleUser);
 router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), UserController.updateUser);

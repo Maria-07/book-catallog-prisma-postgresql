@@ -147,6 +147,19 @@ const getAllFromDB = async (
   };
 };
 
+// get book by category id
+const getBooksByCategoryId = async (categoryId: string) => {
+  const books = await prisma.book.findMany({
+    where: {
+      categoryId,
+    },
+    include: {
+      category: true,
+    },
+  });
+  return books;
+};
+
 //! get a single Book
 const getByIdFromDB = async (id: string): Promise<Book | null> => {
   const result = await prisma.book.findUnique({
@@ -187,4 +200,5 @@ export const BookService = {
   getByIdFromDB,
   updateOneInDB,
   deleteByIdFromDB,
+  getBooksByCategoryId,
 };

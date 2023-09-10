@@ -1,5 +1,7 @@
+import { User } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
+import { JwtPayload } from 'jsonwebtoken';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { UserService } from './user.service';
@@ -12,6 +14,20 @@ const allUsers = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Users retrieved successfully',
+    data: result,
+  });
+});
+
+// get user profile
+const getUserProfile = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserService.getUserProfile(
+    (req.user as JwtPayload).userId
+  );
+
+  sendResponse<User>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Profile retrieved successfully',
     data: result,
   });
 });
@@ -58,4 +74,5 @@ export const UserController = {
   getSingleUser,
   updateUser,
   deleteUser,
+  getUserProfile,
 };
