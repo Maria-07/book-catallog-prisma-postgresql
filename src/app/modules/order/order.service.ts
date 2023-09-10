@@ -10,20 +10,13 @@ const insertIntoDB = async (
   userData: JwtPayload
 ): Promise<Order> => {
   const result = await prisma.$transaction(async transaction => {
-    console.log('userData', userData);
-
-    const user = await prisma.user.findUnique({
-      where: { email: userData?.userEmail },
-    });
-
-    console.log('user', user);
-    const userId = user?.id;
-
     const order = await transaction.order.create({
       data: {
-        userId: userId,
+        userId: userData?.userId,
       },
     });
+
+    console.log('order', order);
 
     for (const index of data.orderedBooks) {
       await transaction.orderedBook.create({
