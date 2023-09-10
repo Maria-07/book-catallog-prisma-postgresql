@@ -27,3 +27,32 @@ enum UserRole {
   admin
   customer
 }
+
+model Category{
+ id                         String                      @id @default(uuid())
+ title String
+
+ books Book[]
+}
+
+model Book {
+  id               String            @id @default(uuid())
+  title            String
+  author           String
+  price            Float
+  genre            String
+  publicationDate  String
+  categoryId       String
+  category         Category          @relation(fields: [categoryId], references: [id])
+
+  @@map("books")
+}
+
+
+model Order {
+  id           String        @id @default(uuid())
+  userId       String
+  // user         User          @relation(fields: [userId], references: [id])
+  // status       String     
+  createdAt    DateTime      @default(now())
+}
