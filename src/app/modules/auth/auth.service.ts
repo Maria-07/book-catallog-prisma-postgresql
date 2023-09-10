@@ -13,16 +13,11 @@ import {
 
 // Create a user through sign up
 const createUser = async (user: IUser): Promise<IUser | null> => {
-  try {
-    const result = await prisma.user.create({
-      data: user, // Pass the user object directly
-    });
+  const result = await prisma.user.create({
+    data: user, // Pass the user object directly
+  });
 
-    return result;
-  } catch (error) {
-    // Handle any potential errors, e.g., duplicate email
-    throw new ApiError(httpStatus.NOT_FOUND, 'User does not create');
-  }
+  return result;
 };
 
 // log in user

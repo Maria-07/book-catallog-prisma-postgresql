@@ -19,6 +19,8 @@ model User {
     contactNo String
     address   String 
     profileImg String 
+
+    @@map("Users")
 }
 
 enum UserRole {
